@@ -1,0 +1,17 @@
+# Imagen base
+FROM ubuntu:22.04
+
+# Instalar herramientas necesarias (ssh, bash, etc.)
+RUN apt-get update && \
+    apt-get install -y openssh-client sshpass bash && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copiar el script al contenedor
+COPY connect_bandit.sh /usr/local/bin/connect_bandit.sh
+
+# Darle permisos de ejecución
+RUN chmod +x /usr/local/bin/connect_bandit.sh
+
+# Establecer el script como punto de entrada
+ENTRYPOINT ["/usr/local/bin/connect_bandit.sh"]
+
